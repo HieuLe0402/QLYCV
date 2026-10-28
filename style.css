@@ -1,0 +1,755 @@
+/* ==========================================================================
+   Quản Lý Công Việc - CSS Stylesheet
+   Modern, Clean & Responsive Design
+   ========================================================================== */
+
+:root {
+    --primary: #26A69A;        /* Nền Header, Tiêu đề & Nút Sửa */
+    --primary-hover: #1f8d83;
+    --primary-light: rgba(38, 166, 154, 0.12);
+    --add-btn: #66BB6A;        /* Nút Thêm xanh lá */
+    --add-btn-hover: #57a65a;
+    --danger: #EF5350;         /* Nút Xóa đỏ */
+    --danger-hover: #e53935;
+    --danger-light: #ffebee;
+    
+    --bg-page: #ffffff;        /* Background bên ngoài form là màu trắng */
+    --bg-card: #ffffff;
+    --text-main: #2d3748;
+    --text-muted: #718096;
+    --text-completed: #a0aec0;
+    --border-color: #e2e8f0;
+    --border-focus: #26A69A;
+    
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.04);
+    --shadow-md: 0 8px 24px rgba(38, 166, 154, 0.12), 0 2px 8px rgba(0, 0, 0, 0.04);
+    --shadow-lg: 0 12px 36px rgba(0, 0, 0, 0.08), 0 4px 16px rgba(0, 0, 0, 0.04);
+    
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 20px;
+    --radius-full: 9999px;
+    
+    --transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Base Reset */
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: #ffffff;
+    color: var(--text-main);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px 16px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Main Wrapper Centering */
+.app-wrapper {
+    width: 100%;
+    max-width: 600px;
+    margin: auto;
+}
+
+/* Rectangular Card */
+.todo-card {
+    background: var(--bg-card);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--border-color);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: var(--transition);
+}
+
+/* ==========================================================================
+   Header Section (Nền màu #26A69A, bao gồm thanh nhập ở trên)
+   ========================================================================== */
+.card-header {
+    background-color: var(--primary); /* Nền #26A69A */
+    color: #ffffff;
+    padding: 24px 28px 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    box-shadow: 0 4px 14px rgba(38, 166, 154, 0.25);
+}
+
+.header-top {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+
+.header-icon-box {
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius-md);
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.35rem;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease;
+}
+
+.card-header:hover .header-icon-box {
+    transform: rotate(-6deg) scale(1.05);
+}
+
+.header-title {
+    font-size: 1.65rem;
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: -0.01em;
+    user-select: none;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* ==========================================================================
+   Thanh Nhập Công Việc Mới (Nằm trên phần header)
+   ========================================================================== */
+.card-input-section {
+    width: 100%;
+}
+
+.task-form {
+    display: flex;
+    gap: 10px;
+    align-items: stretch;
+}
+
+.input-wrapper {
+    flex: 1;
+    position: relative;
+    display: flex;
+}
+
+.task-input {
+    width: 100%;
+    padding: 13px 18px;
+    font-size: 0.98rem;
+    font-family: inherit;
+    color: var(--text-main);
+    background: #ffffff;
+    border: 2px solid transparent;
+    border-radius: var(--radius-md);
+    outline: none;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    transition: var(--transition);
+}
+
+.task-input::placeholder {
+    color: #94a3b8;
+    opacity: 1;
+}
+
+.task-input:focus {
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.5), 0 3px 10px rgba(0, 0, 0, 0.12);
+}
+
+.task-input.input-invalid {
+    border-color: #ffcdd2;
+    background: #ffffff;
+    box-shadow: 0 0 0 3px rgba(239, 83, 80, 0.4);
+    animation: shake 0.35s ease;
+}
+
+/* Error message hiển thị trên nền Header */
+.error-message {
+    font-size: 0.85rem;
+    font-weight: 600;
+    min-height: 20px;
+    margin-top: 8px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    opacity: 0;
+    transform: translateY(-4px);
+    transition: var(--transition);
+    background: #ffebee;
+    color: #c62828;
+    padding: 5px 12px;
+    border-radius: 6px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.error-message.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ==========================================================================
+   Buttons System
+   ========================================================================== */
+.btn {
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 0.92rem;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    transition: var(--transition);
+    user-select: none;
+    line-height: 1;
+}
+
+.btn:active {
+    transform: scale(0.96);
+}
+
+/* Nút Thêm (màu #66BB6A, chữ trắng) */
+.btn-add {
+    background-color: var(--add-btn);
+    color: #ffffff;
+    padding: 13px 22px;
+    border-radius: var(--radius-md);
+    white-space: nowrap;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+}
+
+.btn-add:hover {
+    background-color: var(--add-btn-hover);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.22);
+    transform: translateY(-1px);
+}
+
+/* Nút Sửa (giống nút thêm: icon bút chì + chữ "Sửa", nền giữ nguyên #26A69A, chữ trắng) */
+.btn-edit {
+    background-color: var(--primary);
+    color: #ffffff;
+    padding: 8px 14px;
+    border-radius: var(--radius-sm);
+    box-shadow: 0 2px 6px rgba(38, 166, 154, 0.3);
+    white-space: nowrap;
+}
+
+.btn-edit:hover {
+    background-color: var(--primary-hover);
+    box-shadow: 0 4px 10px rgba(38, 166, 154, 0.45);
+    transform: translateY(-1px);
+}
+
+/* Nút Xóa (giống nút thêm: icon thùng rác + chữ "Xóa", nền giữ nguyên #EF5350, chữ trắng) */
+.btn-delete {
+    background-color: var(--danger);
+    color: #ffffff;
+    padding: 8px 14px;
+    border-radius: var(--radius-sm);
+    box-shadow: 0 2px 6px rgba(239, 83, 80, 0.3);
+    white-space: nowrap;
+}
+
+.btn-delete:hover {
+    background-color: var(--danger-hover);
+    box-shadow: 0 4px 10px rgba(239, 83, 80, 0.45);
+    transform: translateY(-1px);
+}
+
+/* ==========================================================================
+   Main Section & Task List
+   ========================================================================== */
+.card-main-section {
+    padding: 18px 24px 20px;
+    min-height: 240px;
+    max-height: 420px;
+    overflow-y: auto;
+    position: relative;
+}
+
+/* Custom Scrollbar */
+.card-main-section::-webkit-scrollbar {
+    width: 6px;
+}
+.card-main-section::-webkit-scrollbar-track {
+    background: #f1f5f9;
+    border-radius: 4px;
+}
+.card-main-section::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 4px;
+}
+.card-main-section::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}
+
+/* Empty State */
+.empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 44px 16px;
+    text-align: center;
+    color: var(--text-muted);
+    animation: fadeIn 0.4s ease;
+}
+
+.empty-icon-wrap {
+    width: 68px;
+    height: 68px;
+    border-radius: var(--radius-full);
+    background: #f1f5f9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    color: #94a3b8;
+    margin-bottom: 14px;
+}
+
+.empty-text {
+    font-size: 0.98rem;
+    color: var(--text-muted);
+    max-width: 320px;
+    line-height: 1.5;
+}
+
+/* Task List */
+.task-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.task-item {
+    background: #ffffff;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 12px 14px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+    animation: slideInDown 0.25s ease-out;
+}
+
+.task-item:hover {
+    border-color: #cbd5e1;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    transform: translateY(-1px);
+}
+
+/* Checkbox Style */
+.task-checkbox-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.task-checkbox {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 22px;
+    height: 22px;
+    border: 2px solid #94a3b8;
+    border-radius: 6px;
+    cursor: pointer;
+    background-color: #ffffff;
+    transition: var(--transition);
+    position: relative;
+}
+
+.task-checkbox:hover {
+    border-color: var(--primary);
+}
+
+.task-checkbox:checked {
+    background-color: var(--add-btn);
+    border-color: var(--add-btn);
+}
+
+.task-checkbox:checked::after {
+    content: '';
+    position: absolute;
+    left: 6px;
+    top: 2px;
+    width: 5px;
+    height: 11px;
+    border: solid #ffffff;
+    border-width: 0 2.5px 2.5px 0;
+    transform: rotate(45deg);
+}
+
+.task-checkbox:focus-visible {
+    box-shadow: 0 0 0 3px rgba(102, 187, 106, 0.3);
+}
+
+/* Task Title */
+.task-title-wrap {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    align-items: center;
+}
+
+.task-title {
+    font-size: 0.97rem;
+    font-weight: 500;
+    color: var(--text-main);
+    word-break: break-word;
+    transition: var(--transition);
+}
+
+/* Completed Style */
+.task-item.completed {
+    background-color: #f8fafc;
+    border-color: #e2e8f0;
+}
+
+.task-item.completed .task-title {
+    color: var(--text-completed);
+    text-decoration: line-through;
+    text-decoration-thickness: 1.5px;
+}
+
+/* Task Actions (Chứa 2 nút Sửa và Xóa giống nút thêm) */
+.task-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+/* Edit Mode Layout */
+.task-item.is-editing {
+    background: #ffffff;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px rgba(38, 166, 154, 0.2);
+}
+
+.task-edit-form {
+    width: 100%;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.task-edit-input {
+    flex: 1;
+    min-width: 180px;
+    padding: 8px 12px;
+    font-size: 0.95rem;
+    font-family: inherit;
+    border: 1.5px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    color: var(--text-main);
+    outline: none;
+    transition: var(--transition);
+}
+
+.task-edit-input:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px rgba(38, 166, 154, 0.2);
+}
+
+.edit-actions {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+}
+
+.btn-save {
+    background: var(--primary);
+    color: #ffffff;
+    padding: 8px 14px;
+    border-radius: var(--radius-sm);
+    box-shadow: 0 2px 6px rgba(38, 166, 154, 0.25);
+}
+
+.btn-save:hover {
+    background: var(--primary-hover);
+}
+
+.btn-cancel {
+    background: #e2e8f0;
+    color: var(--text-main);
+    padding: 8px 14px;
+    border-radius: var(--radius-sm);
+}
+
+.btn-cancel:hover {
+    background: #cbd5e1;
+}
+
+/* ==========================================================================
+   Footer Section
+   ========================================================================== */
+.card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 28px;
+    border-top: 1px solid var(--border-color);
+    background: #fafcfc;
+    font-size: 0.92rem;
+    color: var(--text-muted);
+}
+
+.footer-status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 500;
+}
+
+.footer-status i {
+    color: var(--primary);
+}
+
+/* Badge Hoàn thành tất cả */
+.badge-all-done {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #e8f5e9;
+    color: #2e7d32;
+    padding: 6px 14px;
+    border-radius: var(--radius-full);
+    font-size: 0.82rem;
+    font-weight: 600;
+    border: 1px solid #c8e6c9;
+    box-shadow: 0 2px 6px rgba(46, 125, 50, 0.15);
+    animation: popBadge 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+.badge-all-done i {
+    color: #43a047;
+    font-size: 0.95rem;
+}
+
+/* ==========================================================================
+   Modal Xác Nhận Xóa
+   ========================================================================== */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(15, 23, 42, 0.5);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 16px;
+    animation: fadeIn 0.2s ease-out;
+}
+
+.modal-box {
+    background: #ffffff;
+    border-radius: var(--radius-lg);
+    width: 100%;
+    max-width: 420px;
+    padding: 28px;
+    text-align: center;
+    box-shadow: var(--shadow-lg);
+    animation: scaleUp 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.15) forwards;
+}
+
+.modal-icon-wrap {
+    width: 58px;
+    height: 58px;
+    border-radius: var(--radius-full);
+    background: var(--danger-light);
+    color: var(--danger);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.6rem;
+    margin: 0 auto 16px;
+}
+
+.modal-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-main);
+    margin-bottom: 8px;
+}
+
+.modal-desc {
+    font-size: 0.92rem;
+    color: var(--text-muted);
+    margin-bottom: 24px;
+    line-height: 1.5;
+}
+
+.modal-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+}
+
+.btn-secondary {
+    background: #e2e8f0;
+    color: var(--text-main);
+    padding: 10px 22px;
+    border-radius: var(--radius-md);
+}
+
+.btn-secondary:hover {
+    background: #cbd5e1;
+}
+
+.btn-modal-delete {
+    background: var(--danger);
+    color: #ffffff;
+    padding: 10px 22px;
+    border-radius: var(--radius-md);
+    box-shadow: 0 3px 8px rgba(239, 83, 80, 0.35);
+}
+
+.btn-modal-delete:hover {
+    background: var(--danger-hover);
+}
+
+/* ==========================================================================
+   Toast Notification
+   ========================================================================== */
+.toast {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: #1e293b;
+    color: #ffffff;
+    padding: 12px 20px;
+    border-radius: var(--radius-full);
+    font-size: 0.9rem;
+    font-weight: 500;
+    box-shadow: var(--shadow-lg);
+    z-index: 1001;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+/* Helpers */
+.hidden {
+    display: none !important;
+}
+
+/* ==========================================================================
+   Keyframes Animations
+   ========================================================================== */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes scaleUp {
+    from {
+        opacity: 0;
+        transform: scale(0.92);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-6px); }
+    40%, 80% { transform: translateX(6px); }
+}
+
+@keyframes popBadge {
+    0% {
+        transform: scale(0.6);
+        opacity: 0;
+    }
+    60% {
+        transform: scale(1.12);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* ==========================================================================
+   Responsive Adaptations
+   ========================================================================== */
+@media (max-width: 520px) {
+    body {
+        padding: 12px;
+    }
+
+    .card-header {
+        padding: 20px 16px 18px;
+        gap: 14px;
+    }
+
+    .header-title {
+        font-size: 1.35rem;
+    }
+
+    .card-main-section {
+        padding: 14px 16px;
+        min-height: 200px;
+    }
+
+    .task-item {
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .task-actions {
+        width: 100%;
+        justify-content: flex-end;
+    }
+
+    .card-footer {
+        padding: 14px 16px;
+        flex-direction: column;
+        gap: 10px;
+        align-items: flex-start;
+    }
+
+    .badge-all-done {
+        align-self: flex-start;
+    }
+}

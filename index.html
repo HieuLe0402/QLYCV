@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Ứng dụng Quản Lý Công Việc - Giao diện đẹp mắt, dễ dàng thêm, sửa, xóa và theo dõi tiến độ công việc hàng ngày.">
+    <title>Quản Lý Công Việc</title>
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main class="app-wrapper">
+        <section class="todo-card" id="todo-app" aria-labelledby="app-title">
+            <!-- Header Section (Nền màu #26A69A bao gồm thanh nhập công việc ở trên) -->
+            <header class="card-header">
+                <div class="header-top">
+                    <div class="header-icon-box" aria-hidden="true">
+                        <i class="fa-solid fa-file-pen"></i>
+                    </div>
+                    <h1 id="app-title" class="header-title">Quản Lý Công Việc</h1>
+                </div>
+
+                <!-- Thanh nhập công việc mới nằm trên phần header -->
+                <div class="card-input-section">
+                    <form id="task-form" class="task-form" onsubmit="return false;" novalidate>
+                        <div class="input-wrapper">
+                            <input 
+                                type="text" 
+                                id="task-input" 
+                                class="task-input" 
+                                placeholder="Nhập công việc mới ..." 
+                                autocomplete="off"
+                                aria-label="Tên công việc mới"
+                            >
+                        </div>
+                        <button type="button" id="add-btn" class="btn btn-add" aria-label="Thêm công việc">
+                            <i class="fa-solid fa-plus"></i>
+                            <span>Thêm</span>
+                        </button>
+                    </form>
+                    <div id="input-error" class="error-message" role="alert" aria-live="polite"></div>
+                </div>
+            </header>
+
+            <!-- Main Task List Section -->
+            <section class="card-main-section" aria-label="Danh sách công việc">
+                <!-- Empty State -->
+                <div id="empty-state" class="empty-state">
+                    <div class="empty-icon-wrap" aria-hidden="true">
+                        <i class="fa-solid fa-clipboard-list"></i>
+                    </div>
+                    <p class="empty-text">Chưa có công việc nào. Hãy thêm công việc mới!</p>
+                </div>
+
+                <!-- Task List -->
+                <ul id="task-list" class="task-list" aria-live="polite"></ul>
+            </section>
+
+            <!-- Footer Section -->
+            <footer class="card-footer">
+                <div class="footer-status">
+                    <i class="fa-solid fa-chart-pie" aria-hidden="true"></i>
+                    <span id="footer-counter">0/0 công việc hoàn thành</span>
+                </div>
+                <div id="all-done-badge" class="badge-all-done hidden" aria-live="polite">
+                    <i class="fa-solid fa-circle-check"></i>
+                    <span>Hoàn thành tất cả</span>
+                </div>
+            </footer>
+        </section>
+    </main>
+
+    <!-- Modal Xác Nhận Xóa -->
+    <div id="delete-modal" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+        <div class="modal-box">
+            <div class="modal-icon-wrap" aria-hidden="true">
+                <i class="fa-solid fa-trash-can"></i>
+            </div>
+            <h2 id="modal-title" class="modal-title">Xác nhận xóa công việc?</h2>
+            <p id="modal-desc" class="modal-desc">Bạn có chắc chắn muốn xóa công việc này không? Thao tác này không thể hoàn tác.</p>
+            <div class="modal-actions">
+                <button type="button" id="cancel-delete-btn" class="btn btn-secondary">Hủy</button>
+                <button type="button" id="confirm-delete-btn" class="btn btn-modal-delete">
+                    <i class="fa-solid fa-trash-can"></i>
+                    <span>Xóa</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Toast for feedback -->
+    <div id="toast" class="toast hidden" role="status" aria-live="polite"></div>
+
+    <!-- Application Script -->
+    <script src="script.js"></script>
+</body>
+</html>
